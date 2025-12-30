@@ -1,0 +1,31 @@
+:root{
+  --bg:#f6f8fb;--card:#fff;--accent:#0b6efd;--muted:#6b7280;--danger:#e11d48;
+  --maxw:1100px;--radius:10px
+}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#0b1220;background:var(--bg);margin:0;padding:18px;display:flex;flex-direction:column;align-items:center}
+.topbar{width:100%;max-width:var(--maxw);display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.brand h1{margin:0;font-size:1.2rem}
+.brand .tag{margin:4px 0 0;color:var(--muted);font-size:0.9rem}
+.actions{display:flex;gap:8px;align-items:center}
+.file-btn{background:#fff;border:1px dashed #e6e9ef;padding:8px 12px;border-radius:8px;cursor:pointer;color:var(--muted)}
+.file-btn input{display:none}
+.btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;font-weight:600}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(11,110,253,0.12)}
+.btn.danger{background:var(--danger)}
+.container{width:100%;max-width:var(--maxw);display:grid;grid-template-columns:1fr;gap:14px}
+.panel{background:var(--card);padding:14px;border-radius:var(--radius);box-shadow:0 6px 18px rgba(12,20,40,0.04)}
+.cards{display:flex;gap:12px}
+.card{flex:1;padding:12px;border-radius:8px;background:#f8fafc;text-align:center}
+.card strong{display:block;font-size:1.4rem}
+.map{height:320px;border-radius:8px;border:1px solid #eef2ff;background:linear-gradient(180deg,#fff,#fbfdff);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:8px;border-bottom:1px solid #f1f5f9;text-align:left;font-size:0.95rem}
+.controls-row{display:flex;gap:8px;align-items:center;margin-top:8px}
+.controls-row input, .controls-row select{padding:8px;border-radius:8px;border:1px solid #e6e9ef}
+.hint{color:var(--muted);font-size:0.9rem;margin-top:8px}
+.footer{margin-top:12px;color:var(--muted);font-size:0.9rem}
+.small{font-size:0.9rem;color:var(--muted)}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr}.topbar{flex-direction:column;align-items:flex-start;gap:8px}}
