@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Veille Citoyenne Ludifiée — Dashboard</title>
+  <meta name="description" content="Dashboard de veille citoyenne — import CSV, carte, graphiques, export anonymisé" />
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Veille Citoyenne — Dashboard</h1>
+      <p class="tag">Collecte citoyenne · Données copropriétaires · Silence radio toléré</p>
+    </div>
+    <nav class="actions">
+      <label class="file-btn">
+        Importer CSV
+        <input id="file-input" type="file" accept=".csv,text/csv" />
+      </label>
+      <button id="download-btn" class="btn">Exporter anonymisé</button>
+      <a class="btn ghost" href="GOVERNANCE.md" target="_blank">Gouvernance</a>
+      <a class="btn ghost" href="PRIVACY.md" target="_blank">Vie privée</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="panel" id="summary">
+      <h2>Résumé</h2>
+      <div class="cards">
+        <div class="card"><strong id="count">0</strong><span>Signalements</span></div>
+        <div class="card"><strong id="unique-places">0</strong><span>Lieux uniques</span></div>
+        <div class="card"><strong id="last-updated">—</strong><span>Dernière mise à jour</span></div>
+      </div>
+    </section>
+
+    <section class="panel" id="map-section">
+      <h2>Carte (géolocalisation approximative)</h2>
+      <div id="map" class="map">La carte s'affiche ici</div>
+      <p class="hint">Si vos données n'ont pas de coordonnées, la carte place les signalements par commune/code postal.</p>
+    </section>
+
+    <section class="panel" id="charts">
+      <h2>Graphiques</h2>
+      <div class="grid-2">
+        <canvas id="typeChart"></canvas>
+        <canvas id="timeChart"></canvas>
+      </div>
+    </section>
+
+    <section class="panel" id="table-section">
+      <h2>Données (aperçu)</h2>
+      <div class="table-wrap">
+        <table id="data-table" aria-live="polite">
+          <thead>
+            <tr><th>Date</th><th>Commune</th><th>Type</th><th>Description</th><th>Sensibilité</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="controls">
+      <h2>Filtres & utilitaires</h2>
+      <div class="controls-row">
+        <select id="filter-type"><option value="">Tous types</option></select>
+        <input id="filter-commune" placeholder="Filtrer par commune / code postal" />
+        <button id="apply-filters" class="btn">Appliquer</button>
+        <button id="reset-filters" class="btn ghost">Réinitialiser</button>
+      </div>
+      <div class="controls-row small">
+        <label><input id="anonymize-toggle" type="checkbox" checked /> Anonymiser avant export</label>
+        <button id="clear-data" class="btn danger">Supprimer toutes les données locales</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>Prototype open‑source · Hébergé sur GitHub Pages · Données sous contrôle des contributeurs</small>
+  </footer>
+
+  <!-- Librairies légères via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</body>
+</html>
