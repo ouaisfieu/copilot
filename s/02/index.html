@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Veille Citoyenne — Dashboard</title>
+  <meta name="description" content="Dashboard open-source pour collecte citoyenne, export anonymisé et co-gestion des données." />
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.min.css">
+  <!-- Leaflet & Chart.js via CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+  <script defer src="app.min.js"></script>
+</head>
+<body>
+  <header class="topbar" role="banner">
+    <div class="brand" aria-hidden="false">
+      <h1>Veille Citoyenne — Dashboard</h1>
+      <p class="tag">Collecte citoyenne · Données copropriétaires · Silence radio toléré</p>
+    </div>
+
+    <nav class="actions" role="navigation" aria-label="Actions principales">
+      <label class="file-btn" title="Importer un CSV de signalements">
+        Importer CSV
+        <input id="file-input" type="file" accept=".csv,text/csv" aria-label="Importer un fichier CSV de signalements" />
+      </label>
+
+      <button id="download-btn" class="btn" title="Exporter les données (anonymisées si activé)">Exporter anonymisé</button>
+
+      <a class="btn ghost" href="GOVERNANCE.md" target="_blank" rel="noopener">Gouvernance</a>
+      <a class="btn ghost" href="PRIVACY.md" target="_blank" rel="noopener">Vie privée</a>
+    </nav>
+  </header>
+
+  <main class="container" role="main" aria-labelledby="dashboard-title">
+    <h2 id="dashboard-title" class="sr-only">Tableau de bord Veille Citoyenne</h2>
+
+    <section class="panel" id="summary" aria-labelledby="summary-title">
+      <h3 id="summary-title">Résumé</h3>
+      <div class="cards" role="list">
+        <div class="card" role="listitem"><strong id="count">0</strong><span>Signalements</span></div>
+        <div class="card" role="listitem"><strong id="unique-places">0</strong><span>Lieux uniques</span></div>
+        <div class="card" role="listitem"><strong id="last-updated">—</strong><span>Dernière mise à jour</span></div>
+      </div>
+    </section>
+
+    <section class="panel" id="map-section" aria-labelledby="map-title">
+      <h3 id="map-title">Carte (géolocalisation approximative)</h3>
+      <div id="map" class="map" role="region" aria-label="Carte des signalements">La carte s'affiche ici</div>
+      <p class="hint">Si vos données n'ont pas de coordonnées, la carte place les signalements par commune / code postal.</p>
+    </section>
+
+    <section class="panel" id="charts" aria-labelledby="charts-title">
+      <h3 id="charts-title">Graphiques</h3>
+      <div class="grid-2" role="group" aria-label="Graphiques">
+        <canvas id="typeChart" aria-label="Répartition par type" role="img"></canvas>
+        <canvas id="timeChart" aria-label="Série temporelle des signalements" role="img"></canvas>
+      </div>
+    </section>
+
+    <section class="panel" id="table-section" aria-labelledby="table-title">
+      <h3 id="table-title">Données (aperçu)</h3>
+      <div class="table-wrap" role="region" aria-label="Tableau des signalements">
+        <table id="data-table" aria-live="polite">
+          <thead>
+            <tr><th scope="col">Date</th><th scope="col">Commune</th><th scope="col">Type</th><th scope="col">Description</th><th scope="col">Sensibilité</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="controls" aria-labelledby="controls-title">
+      <h3 id="controls-title">Filtres & utilitaires</h3>
+
+      <div class="controls-row" role="form" aria-label="Filtres">
+        <select id="filter-type" aria-label="Filtrer par type"><option value="">Tous types</option></select>
+        <input id="filter-commune" placeholder="Filtrer par commune / code postal" aria-label="Filtrer par commune ou code postal" />
+        <button id="apply-filters" class="btn" aria-label="Appliquer les filtres">Appliquer</button>
+        <button id="reset-filters" class="btn ghost" aria-label="Réinitialiser les filtres">Réinitialiser</button>
+      </div>
+
+      <div class="controls-row small" aria-hidden="false">
+        <label><input id="anonymize-toggle" type="checkbox" checked /> Anonymiser avant export</label>
+        <button id="clear-data" class="btn danger" aria-label="Supprimer toutes les données locales">Supprimer toutes les données locales</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <small>Prototype open‑source · Hébergé sur GitHub Pages · Données sous contrôle des contributeurs</small>
+  </footer>
+
+  <!-- Optional: provide a small accessible skip link -->
+  <a class="sr-only" href="#dashboard-title">Aller au tableau de bord</a>
+
+  <!-- Optional: include a small inline script to ensure service worker registration prompt is visible for older browsers (app.min.js already attempts registration) -->
+  <script>
+    // Graceful fallback: if app.min.js didn't register SW, try once more
+    if ('serviceWorker' in navigator && !navigator.serviceWorker.controller) {
+      navigator.serviceWorker.register('sw.js').catch(()=>{});
+    }
+  </script>
+</body>
+</html>
