@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Formulaire — Veille Citoyenne Ludifiée</title>
+  <style>
+    body{font-family:system-ui,Arial;margin:20px;background:#f7f8fb;color:#111}
+    .wrap{max-width:800px;margin:0 auto;background:#fff;padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(12,20,40,0.04)}
+    label{display:block;margin-top:12px;font-weight:600}
+    input,textarea,select{width:100%;padding:10px;margin-top:6px;border:1px solid #e6e9ef;border-radius:8px}
+    .hint{font-size:0.9rem;color:#6b7280;margin-top:6px}
+    .btn{display:inline-block;margin-top:14px;padding:10px 14px;background:#0b6efd;color:#fff;border-radius:8px;text-decoration:none}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Formulaire de signalement</h1>
+    <p class="hint">Copiez ce modèle dans Framaforms, Typeform ou Google Forms. Les champs marqués d’un astérisque sont obligatoires.</p>
+
+    <form>
+      <label>Date et heure du signalement *</label>
+      <input type="datetime-local" name="date" required />
+
+      <label>Zone géographique (code postal ou commune) *</label>
+      <input type="text" name="commune" required />
+
+      <label>Type d’observation *</label>
+      <select name="type_observation" required>
+        <option value="">— Choisir —</option>
+        <option>urbanisme</option>
+        <option>environnement</option>
+        <option>services publics</option>
+        <option>transparence</option>
+        <option>autre</option>
+      </select>
+
+      <label>Description courte (1–3 phrases) *</label>
+      <textarea name="description_courte" rows="3" required></textarea>
+
+      <label>Détails complémentaires</label>
+      <textarea name="details" rows="4"></textarea>
+
+      <label>Preuve jointe (URL ou upload)</label>
+      <input type="url" name="preuve_url" placeholder="https://..." />
+
+      <label>Niveau de sensibilité *</label>
+      <select name="niveau_sensibilite" required>
+        <option value="">— Choisir —</option>
+        <option>public</option>
+        <option>anonymisé</option>
+        <option>privé pour modération</option>
+      </select>
+
+      <label><input type="checkbox" name="consentement" required /> Je consens à ce que mes données soient stockées, anonymisées et partagées sous licence ODbL; je deviens copropriétaire des jeux de données agrégés. *</label>
+
+      <label><input type="checkbox" name="autorisation_contact" /> J’accepte d’être contacté·e pour co‑construction.</label>
+
+      <button class="btn" type="submit">Soumettre</button>
+    </form>
+  </main>
+</body>
+</html>
